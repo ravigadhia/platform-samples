@@ -199,6 +199,16 @@ private
     end
 
     # open a new csv for output
+    CSV.open("org_members.csv", "wb") do |csv|
+      # iterate and print inactive members
+      @members.each do |member|
+          member_detail = "#{member[:login]},#{member[:email] unless member[:email].nil?}"
+          info "#{member_detail} is an org member\n"
+          csv << [member_detail]
+      end
+    end
+
+    # open a new csv for output
     CSV.open("inactive_users.csv", "wb") do |csv|
       # iterate and print inactive members
       @members.each do |member|
